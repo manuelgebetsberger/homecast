@@ -1,0 +1,19 @@
+# crontab
+# Author: Manuel Gebetsberger
+# Date: 8.2.2018
+# Description: crontab for Martin Hinteregger to get temperature data from the hydrographic service of carinthia
+
+# -------------------------------------------------------------------
+#  *     *     *   *    *        command to be executed
+#  -     -     -   -    -
+#  |     |     |   |    |
+#  |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+#  |     |     |   +------- month (1 - 12)
+#  |     |     +--------- day of        month (1 - 31)
+#  |     +----------- hour (0 - 23)
+#  +------------- min (0 - 59)
+
+
+*/5 * * * * cd /Users/manuelpresser/Documents/homecast/ && Rscript extracting.R &> cronjob.logfile.log
+0 * * * *   cd /Users/manuelpresser/Documents/homecast/ && Rscript merging.R 
+
