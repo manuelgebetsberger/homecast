@@ -1,5 +1,5 @@
 # homecast
-** homecast - homemade meteorological forecast **
+**homecast - homemade meteorological forecast**
 
 This repository is currently a private fun-project which aims into building automatic temperature forecasts for a friend of mine with freely available data of a meteorological station, which he is also maintaining.
 
