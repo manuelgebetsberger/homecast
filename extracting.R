@@ -1,12 +1,16 @@
 rm(list=ls())
 
+
+#- some needed packages
 library(XML)
 library(zoo)
 library(memDist)
 
 
-#- Helper function to read data in meadningful formats
+#- Helper function to read data in meaningful formats
 convertData <- function(x){
+	
+	#- we know that each node (table entry) includes 7 cells
 	if (length(x) == 7){
 		name   <- x[[1]]$text
 		height <- as.numeric(x[[2]]$text)
@@ -14,20 +18,19 @@ convertData <- function(x){
 		N      <- as.numeric(x[[4]]$text)
 		T      <- x[[5]]$text
 		
-		# check for missing values
+		#- check for missing values
 		if (T == "-"){
 			T <- NA
 		}else{
 			T <- as.numeric(paste(strsplit(T,",")[-2][[1]],collapse="."))
 		}
 		
-		
+		#- create dataframe
 		data <- data.frame("name"   = name,
 						   "height" = height,
 						   "time"   = time,
 						   "N"      = N,
 						   "T"      = T)
-		
 		
 	}else{
 		warning("skipping node: length != 7 -> probably just header information")
@@ -37,10 +40,11 @@ convertData <- function(x){
 
 
 
-# connecting to URL and get the raw data, convert it and return a dataframe
+#- connecting to URL and get the raw data, convert it and return a dataframe
 getData <- function(x){
+	
 	# reading page content and nodes
-	page     <- readLines(url)
+	page     <- readLines(x)
 	raw.data <- htmlTreeParse(page, error=function(...){}, useInternalNodes = F)$children$html[["body"]]
 	
 	#- create list of single nodes
@@ -53,19 +57,24 @@ getData <- function(x){
 
 
 
-# define URL
+
+#------------------------------------------------------------------------------------------------------------
+#- MAIN PART
+#------------------------------------------------------------------------------------------------------------
+
+#- define URL
 url  <- "https://info.ktn.gv.at/asp/hydro/daten/Tabelle_Niederschlag.html"
 
-# get data from URL and covert to readable R-formats
+#- get data from URL, covert to readable R-formats, and save
 cat(sprintf("  getting data at %s",Sys.time()))
 	
-# getting data
+#- getting data
 data <- try(getData(url),silent=TRUE)
-# save data
+
+#- save data
 save(data,file=sprintf("data/data_%s.rda",format(Sys.time(),"%Y-%m-%d_%H%M")))
 
 cat(sprintf(" DONE\n      ... waiting for next connection ...\n"))
-print(data[data$name == "St.Oswald",])
 
 
 
