@@ -13,6 +13,9 @@ load(sprintf("%s/%s",dirpath,avail[1]))
 stations <- data$name
 stations <- stations[-21]
 
+# merging and plotting currently only for St.Oswald
+stations <- "St.Oswald"
+
 
 #- loop over stations
 for (stat in stations){
@@ -20,18 +23,22 @@ for (stat in stations){
 	
 	#- loop over files extracted by the crontab
 	for (file in avail){
+		print(file)
 		
 		#- loading file
 		f <- sprintf("%s/%s",dirpath,file)
 		load(f)
 		
 		#- subsetting station
-		val <- data[data$name == stat,]
-		s   <- zoo(subset(val,select=c(T,N)),val$time)
-		
-		#- merge if timeindex of the new file is more accurate
-		if (index(s) > range(index(z))[2]){
-			z <- rbind(z,s)
+		#- check for extraction error (if data is.null)
+		if (!is.null(data)){
+			val <- data[data$name == stat,]
+			s   <- zoo(subset(val,select=c(T,N)),val$time)
+			
+			#- merge if timeindex of the new file is more accurate
+			if (index(s) > range(index(z))[2]){
+				z <- rbind(z,s)
+			}
 		}
 		
 	}

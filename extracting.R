@@ -70,6 +70,8 @@ cat(sprintf("  getting data at %s",Sys.time()))
 	
 #- getting data
 data <- try(getData(url),silent=TRUE)
+#- define data as NULL if an error occured
+if ("try-error" %in% class(data)){data <- NULL}
 
 #- save data
 save(data,file=sprintf("data/data_%s.rda",format(Sys.time(),"%Y-%m-%d_%H%M")))

@@ -14,6 +14,6 @@
 #  +------------- min (0 - 59)
 
 
-*/5 * * * * cd /Users/manuelpresser/Documents/homecast/ && Rscript extracting.R &> cronjob.logfile.log
+*/15 * * * * cd /Users/manuelpresser/Documents/homecast/ && Rscript extracting.R &> cronjob.logfile.log
 0 * * * *   cd /Users/manuelpresser/Documents/homecast/ && Rscript merging.R 
 
