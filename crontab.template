@@ -1,7 +1,7 @@
 # crontab
 # Author: Manuel Gebetsberger
 # Date: 8.2.2018
-# Description: crontab for Martin Hinteregger to get temperature data from the hydrographic service of carinthia
+# Description: crontab to get temperature data from the hydrographic service of carinthia
 
 # -------------------------------------------------------------------
 #  *     *     *   *    *        command to be executed
@@ -14,6 +14,6 @@
 #  +------------- min (0 - 59)
 
 
-*/15 * * * * cd /Users/manuelpresser/Documents/homecast/ && Rscript extracting.R &> cronjob.logfile.log
-0 * * * *   cd /Users/manuelpresser/Documents/homecast/ && Rscript merging.R 
+*/15 * * * * cd PATH2homecast && Rscript extracting.R &> cronjob.logfile.log
+0 * * * *   cd PATH2homecast && Rscript merging.R 
 
