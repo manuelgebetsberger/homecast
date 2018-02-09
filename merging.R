@@ -3,7 +3,11 @@ rm(list=ls())
 #- create directory for precessed data
 outpath  <- "data_processed_rda"
 dirpath  <- "data"
-dir.create(outpath,showWarnings=F)
+plotpath <- "timeseries"
+
+#- create directories
+dir.create(outpath, showWarnings=F)
+dir.create(plotpath,showWarnings=F)
 
 #- find available files
 avail    <- list.files("data")

@@ -67,7 +67,9 @@ url  <- "https://info.ktn.gv.at/asp/hydro/daten/Tabelle_Niederschlag.html"
 
 #- get data from URL, covert to readable R-formats, and save
 cat(sprintf("  getting data at %s",Sys.time()))
-	
+
+#- create raw data directory
+dir.create("data",showWarnings=F)
 #- getting data
 data <- try(getData(url),silent=TRUE)
 #- define data as NULL if an error occured
