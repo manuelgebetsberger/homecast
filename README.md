@@ -7,7 +7,16 @@ As basis we use the 'near real-time' observations for temperature of the Hydrogr
 
 
 # **How to get run**
-- Copy _crontab.template_ to e.g., _crontab_
+- Download this repository
+- Copy _crontab.template_ to e.g., _crontab.copy_
 - Replace in _crontab_ **PATH2homecast** which describes the path where the local **homecast** directory is located
-- Put _crontab_ in the cronjob list in the terminal with the command: 
-> crontab crontab (Mac and Linux)
+- Put _crontab_ in the cronjob list, and check if its running with following terminal commands: 
+```bash
+crontab crontab.copy
+crontab -l
+```
+
+
+
+
+
