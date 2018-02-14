@@ -15,5 +15,5 @@
 
 
 */15 * * * * cd PATH2homecast && Rscript extracting.R &> cronjob.logfile.log
-0 * * * *   cd PATH2homecast && Rscript merging.R 
-
+*/15 * * * * cd PATH2homecast && Rscript merging.R 
+1,16,31,46 * * * * cd PATH2homecast $$ Rscript plot.R

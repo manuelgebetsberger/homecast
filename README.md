@@ -5,7 +5,11 @@ This repository is currently a private fun-project which aims into building auto
 
 As basis we will use the 'near real-time' observations for temperature of the Hydrographic Service of Carinthia, which are delayed about 15 minutes and available in a 15 minute interval. 
 
-Currently, only the automatic downloader for observational data is running.
+Currently, only the automatic visualization for observational data is running:
+
+- gets the data  (_extracting.R_)
+- merges all data and create R timeseries (zoo-object) (_merging.R_)
+- plots the temperature data (_plot.R_)
 
 
 # **How to get the observations automatically**
@@ -20,5 +24,6 @@ crontab -l
 
 
 # **Future steps**
+- Make some nice visualization
 - Getting some numerical weather data (NWP), such as GFS or even better GEFS
 - Apply some statistical post-processing method to observational/NWP data
