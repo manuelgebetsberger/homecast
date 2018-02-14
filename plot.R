@@ -1,4 +1,5 @@
 rm(list=ls())
+graphics.off()
 library(zoo)
 
 #- Helper function to create continuous timeseries filled with NA
@@ -56,15 +57,21 @@ sub <- timeseries(z)
 #- deaccumulation
 sub <- deaccumulate(sub)
 
+
 #- do quick plot of available timeseries
 pdf(file=sprintf("timeseries_plots/%s.pdf",station),width=8,height=4)
-for (i in "T"){
-	plot(sub[,i],col=1,type="l",lwd=2,pch=16,xlab="",ylab=i,main=station)
+	plot(sub$T,col=1,type="l",las=1,lwd=2,pch=16,xlab="",ylab="Temperature [°C]",main=station)
 	abline(0,0)
-}
+
+	# add data source into the figure
+	reset <- function() {
+		par(mfrow=c(1, 1), oma=rep(0, 4), mar=rep(0, 4), new=TRUE)
+		plot(0:1, 0:1, type="n", xlab="", ylab="", axes=FALSE)
+	}
+	reset()
+	leg <- "Data source: https://info.ktn.gv.at/asp/hydro/daten/Niederschlag.html"
+	legend("bottomright", legend=leg,bty="n",cex=0.5)
 dev.off()
-
-
 
 
 
