@@ -46,12 +46,6 @@ for (stat in stations){
 		}
 		
 	}
-	
-	#- do quick plot of available timeseries
-	pdf(file=sprintf("timeseries_plots/%s.pdf",stat))
-		plot(na.omit(z),type="b",lwd=2,pch=16,xlab="TIME",main=stat)
-	dev.off()
-	
 	#- save file
 	save(z,file=sprintf("%s/%s.rda",outpath,stat))
 }

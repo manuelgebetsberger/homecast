@@ -19,6 +19,6 @@ crontab -l
 ```
 
 
-# **Future steps***
+# **Future steps**
 - Getting some numerical weather data (NWP), such as GFS or even better GEFS
 - Apply some statistical post-processing method to observational/NWP data
