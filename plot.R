@@ -39,7 +39,42 @@ deaccumulate <- function(x){
 }
 
 
+#- Plotfunction
+plotFun <- function(x,param=NULL,...){
+	if (is.null(param)){stop("No parameter defined")}
+	
+	limit <- range(na.omit(x[,param]))
+	plot(index(x),rep(0,length(index(x))),col="white",ylim=limit,xlab="",...)
+	abline(0,0)
+	
+	
+	# add vertical lines for specific hour of the day
+	day <- index(x)[as.POSIXlt(index(x))$min == 0 & as.POSIXlt(index(x))$hour %in% 0]
+	h12 <- index(x)[as.POSIXlt(index(x))$min == 0 & as.POSIXlt(index(x))$hour %in% 12]
+	h3  <- index(x)[as.POSIXlt(index(x))$min == 0 & as.POSIXlt(index(x))$hour %in% c(3,6,9,15,18,21)]
+	cols <- "lightgrey"
+	abline(v=day,col=cols,lty=1,lwd=2)
+	abline(v=h12,col=cols,lty=1,lwd=1)
+	abline(v=h3, col=cols,lty=3,lwd=1)
+	
+	# add time to margin
+	#mtext(side=3,at=day,"00:00",cex=0.5)
+	mtext(side=1,at=h12,"12:00",cex=0.5)
+	
+	
+	lines(x[,param],col=1,type="l",las=1,lwd=2)
+	
+	
+	# add data source into the figure
+	reset <- function() {
+		par(mfrow=c(1, 1), oma=rep(0, 4), mar=rep(0, 4), new=TRUE)
+		plot(0:1, 0:1, type="n", xlab="", ylab="", axes=FALSE)
+	}
+	reset()
+	leg <- "Data source: https://info.ktn.gv.at/asp/hydro/daten/Niederschlag.html"
+	legend("bottomright", legend=leg,bty="n",cex=0.5)
 
+}
 
 
 
@@ -60,17 +95,7 @@ sub <- deaccumulate(sub)
 
 #- do quick plot of available timeseries
 pdf(file=sprintf("timeseries_plots/%s.pdf",station),width=8,height=4)
-	plot(sub$T,col=1,type="l",las=1,lwd=2,pch=16,xlab="",ylab="Temperature [°C]",main=station)
-	abline(0,0)
-
-	# add data source into the figure
-	reset <- function() {
-		par(mfrow=c(1, 1), oma=rep(0, 4), mar=rep(0, 4), new=TRUE)
-		plot(0:1, 0:1, type="n", xlab="", ylab="", axes=FALSE)
-	}
-	reset()
-	leg <- "Data source: https://info.ktn.gv.at/asp/hydro/daten/Niederschlag.html"
-	legend("bottomright", legend=leg,bty="n",cex=0.5)
+	plotFun(sub,param="T",ylab="Temperature [°C]",main=station)
 dev.off()
 
 
